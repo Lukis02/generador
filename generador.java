@@ -142,5 +142,23 @@ if(ascii.isSelected()==true) {
 
         }
     }
+    private class implements ActionListener{
+        @Override
+        public void actionperformed(ActionEvent e) {
+            if(minus==true){
+                System.out.println(minusculas);
+
+            }
+            if(mayus==true){
+                System.out.println(MAYUSCULAS);
+            }
+            if (num==true){
+                System.out.println(numeros);
+            }
+            if(ascii == true){
+                System.out.println(ascii);
+            }
+
+    }
 }
 
