@@ -1,12 +1,18 @@
-package interfaza;
+
 import javax.print.attribute.standard.JobPrioritySupported;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Random;
+
 
 public class generador extends JFrame {
     private boolean MINUS, MAYUS, NUMS, ASCIS;
+     ArrayList array= new ArrayList();
     public static String minusculas = "abcdefghijklmnñopqrstuvwxyz";
     public static String MAYUSCULAS = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
     public static String numeros = "1234567890";
@@ -33,6 +39,16 @@ public class generador extends JFrame {
         mayus = new JCheckBox("Mayúsculas (ABCDEFGHIJKLMNÑOPQRSTUVWXYZ)");
         p3.add(mayus);
         minus = new JCheckBox("minusculas (abcdefghijklmnñopqrstuvwxyz)");
+        minus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (minus.isSelected() == true) {
+                    MINUS = true;
+                } else {
+                    MINUS = false;
+                }
+            }
+        });
         p3.add(minus);
         num = new JCheckBox("números(1234567890)");
         p3.add(num);
@@ -40,6 +56,7 @@ public class generador extends JFrame {
         p3.add(ascii);
         p2.add(p3);
         spino = new JSpinner(digitos);
+
         p2.add(spino);
         JPanel p4 = new JPanel();
         p4.setLayout(new GridLayout(1, 2));
@@ -49,6 +66,7 @@ public class generador extends JFrame {
         aceptar = new JButton("aceptar");
         p4.add(aceptar);
         aceptar.addActionListener(new acepto());
+
         p1.add(p2);
         p1.add(p4);
         add(p1);
@@ -66,11 +84,7 @@ public class generador extends JFrame {
         public void actionPerformed(ActionEvent e) {
 
 
-            if (minus.isSelected() == true) {
-                MINUS = true;
-            } else {
-                MINUS = false;
-            }
+
         }
     }
 
@@ -78,7 +92,7 @@ public class generador extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (mayus.isSelected() == true) {
-                MAYUS = true;
+                MINUS = true;
             } else {
                 MINUS = false;
             }
@@ -113,8 +127,35 @@ public class generador extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
 
+            if (MINUS == true) {
+                for (int i = 'a'; i <= 'z'; i++) {
+                    array.add(i);
+                }
+            }
+            if (MAYUS == true) {
+                for (int i = 'A'; i <= 'Z'; i++) {
+                    array.add(i);
+                }
+            }
+            if (NUMS == true) {
+                for (int i = '0'; i <= '9'; i++) {
+                    array.add(i);
+                }            }
+            if (ASCIS == true) {
+                for (int i = '('; i <= '+'; i++) {
+                    array.add(i);
+                }
 
-            int cantidad = (int) spino.getValue();
+            }
+            int numcarac = (int) digitos.getValue();
+            String contraseña = " ";
+            Random contra = new Random();
+            for (int i = 0; i <numcarac; i++) {
+                contraseña += array.get(contra.nextInt(array.size()));
+
+            }
+            texto.setText(contraseña);
+
 
         }
     }
@@ -124,41 +165,27 @@ public class generador extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-if (mayus.isSelected()==true) {
-    mayus.setSelected(false);
-}
-if (minus.isSelected()== true) {
-    minus.setSelected(false);
-}
-if (num.isSelected()==true) {
-    num.setSelected(false);
-}
-if(ascii.isSelected()==true) {
-    ascii.setSelected(false);
+            if (mayus.isSelected() == true) {
+                mayus.setSelected(false);
+            }
+            if (minus.isSelected() == true) {
+                minus.setSelected(false);
+            }
+            if (num.isSelected() == true) {
+                num.setSelected(false);
+            }
+            if (ascii.isSelected() == true) {
+                ascii.setSelected(false);
 
-}spino.setValue(4);
-
+            }
+            spino.setValue(4);
 
 
         }
     }
-    private class implements ActionListener{
-        @Override
-        public void actionperformed(ActionEvent e) {
-            if(minus==true){
-                System.out.println(minusculas);
 
-            }
-            if(mayus==true){
-                System.out.println(MAYUSCULAS);
-            }
-            if (num==true){
-                System.out.println(numeros);
-            }
-            if(ascii == true){
-                System.out.println(ascii);
-            }
+        }
 
-    }
-}
+
+
 
